@@ -1,0 +1,37 @@
+.document {
+  background-color: #262730;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  align-items: left;
+}
+.sLink,
+.lLink {
+  width: 100%;
+  height: 20px;
+  border: none;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.submit {
+  width: 20%;
+  height: 40px;
+  background-color: #d33f49;
+  border: none;
+  border-radius: 10px;
+}
+.edit{
+  color: white;
+  margin-bottom: 20px;
+  margin-left: 2px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
