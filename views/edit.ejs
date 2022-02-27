@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Editor</title>
+    <script src="/js/script.js"></script>
 </head>
-<body>
-    <% results.forEach(results=> { %>
-   <p><%= results.longlink  %></p> 
-    <% }) %>
+
+<body class="document">
+    <div class="containerEdit">
+        <div class="header">
+            <h3 id="h3" class="lLinkEdit">Link</h3>
+            <h3 id="h3" class="sLinkEdit">Shortened link</h3>
+            <h3 id="h3" class="dateEdit">Date added</h3>
+            <h3 id="h3" class="editing">Editing</h3>
+        </div>
+        <% results.forEach(results=> { %>
+            <div class="row">
+                <p class="lLinkEdit">
+                    <%= results.longlink%>
+                </p>
+                <p class="sLinkEdit">
+                    <%= results.shortlink %>
+                </p>
+                <p class="dateEdit">
+                    <%= results.date %>
+                </p>
+                <form class="editingContainer" method="post" action="/edit/<%=results.key%>/?_method=delete">
+                    <button type="submit" id="delete" class="btn-delete">Delete link</button>
+                </form>
+            </div>
+            <% }) %>
+    </div>
 </body>
+
 </html>

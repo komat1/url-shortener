@@ -28,10 +28,69 @@
   border: none;
   border-radius: 10px;
 }
-.edit{
+.edit {
   color: white;
   margin-bottom: 20px;
   margin-left: 2px;
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
+}
+.containerEdit {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+.row {
+  display: flex;
+  align-items: center;
+}
+.lLinkEdit,
+.sLinkEdit,
+.dateEdit,
+.editing {
+  background-color: #262730;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px;
+  background-color: #32333f;
+  height: 25px;
+  border-radius: 5px;
+}
+.lLinkEdit {
+  width: 45%;
+}
+.sLinkEdit {
+  width: 15%;
+}
+.dateEdit {
+  width: 20%;
+}
+.editing {
+  width: 20%;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+}
+#h3 {
+  background-color: #48495a;
+}
+.editingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  width: 20%;
+  height: 25px;
+}
+.btn-delete {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  background-color: #262730;
+  border: 1px solid #555555;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
 }

@@ -1,16 +1,33 @@
 const express = require("express");
 const app = express();
-require('dotenv').config()
+const path = require("path");
+const methodOverride = require("method-override");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const { Deta } = require("deta");
 const deta = Deta(process.env.DETA);
 const db = deta.Base("shortener");
 const PORT = 8080;
 
+const date = new Date();
+const datetime =
+  "Created: " +
+  date.getDate() +
+  "/" +
+  (date.getMonth() + 1) +
+  "/" +
+  date.getFullYear() +
+  " at " +
+  date.getHours() +
+  ":" +
+  date.getMinutes() +
+  ":" +
+  date.getSeconds();
 
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/", async (req, res) => {
   const databaseFetch = await db.fetch({ shortlink: req.body.short });
@@ -18,10 +35,11 @@ app.post("/", async (req, res) => {
     db.put({
       longlink: req.body.long,
       shortlink: req.body.short,
+      date: datetime,
     });
-    res.redirect("/")
+    res.redirect("/");
   } else {
-    res.send(`  <p>Tento link už existuje!</p>
+    res.send(`  <p>This link has already been used!</p>
   <a href="/">naspäť</a>`);
   }
 });
@@ -33,22 +51,27 @@ app.get("/", (req, res) => {
 app.get("/link/:id", async (req, res) => {
   const { id } = req.params;
   const user = await db.fetch({ shortlink: id });
-  console.log(user)
+  console.log(user);
 
   if (user.count === 0) {
-    res.send(`  <p>Tento link neexistuje!</p>
-    <a href="/">naspäť</a>`);
+    res.send(`  <p>This link doesn't exist!</p>
+    <a href="/">Go back</a>`);
   } else {
-      console.log(user);
+    console.log(user);
     res.redirect(user.items[0].longlink);
   }
 });
 // Place to edit the links
-// app.get("/edit", async (req, res) => {
-//     const linksList = await db.fetch({});
-//     console.log(linksList.items[1]
-//     // app.render("edit", {results: linksList[0]})ß;
-// })
+app.get("/edit", async (req, res) => {
+  const linksList = await db.fetch({});
+  res.render("edit", { results: linksList.items });
+});
+
+app.delete("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  await db.delete(id);
+  res.redirect("/edit");
+});
 
 app.listen(PORT);
 
